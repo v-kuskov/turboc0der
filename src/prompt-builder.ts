@@ -1,7 +1,5 @@
-import { Mode } from "./mode"; export { Mode };
-
 export interface IPrompt {
-    resolve(mode: Mode | undefined): Promise<string | undefined>;
+    resolve(): Promise<string | undefined>;
 }
 
 class Prompt implements IPrompt {
@@ -13,11 +11,11 @@ class Prompt implements IPrompt {
         this.filter = fn;
     }
 
-    async resolve(mode: Mode | undefined): Promise<string | undefined> {
+    async resolve(): Promise<string | undefined> {
         if (this.filter === undefined) {
             return this.prompt;
         }
-        if (this.filter(mode))
+        if (this.filter())
             return this.prompt;
         return undefined;
     }
@@ -30,8 +28,8 @@ class CombiePrompt implements IPrompt {
         this.prompts = prompts;
     }
 
-    async resolve(mode: Mode): Promise<string | undefined> {
-        let resolvedPromises = this.prompts.map(prompt => prompt.resolve(mode));
+    async resolve(): Promise<string | undefined> {
+        let resolvedPromises = this.prompts.map(prompt => prompt.resolve());
         let resolvedValues = await Promise.all(resolvedPromises);
         return resolvedValues.filter(prompt => prompt !== undefined).join("\n\n");
     }
@@ -44,8 +42,8 @@ class SelectPrompt implements IPrompt {
         this.prompts = prompts;
     }
 
-    async resolve(mode: Mode): Promise<string | undefined> {
-        let resolvedPromises = this.prompts.map(prompt => prompt.resolve(mode));
+    async resolve(): Promise<string | undefined> {
+        let resolvedPromises = this.prompts.map(prompt => prompt.resolve());
         let resolvedValues = await Promise.all(resolvedPromises);
         return resolvedValues.find(prompt => prompt !== undefined)
     }
