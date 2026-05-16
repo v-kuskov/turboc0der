@@ -124,7 +124,7 @@ for testing and self-verification loop by writing releavant unit tests. Use debu
 export class SystemStatePrompt implements IPrompt {
     async resolve(): Promise<string | undefined> {
         const os = await getOSInfo();
-        const workDir = process.cwd();
+        const workDir = process.cwd()
         return `OS: ${os?.name} ${os?.version}\nCWD: ${workDir}`;
     }
 
