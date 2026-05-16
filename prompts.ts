@@ -53,6 +53,28 @@ request.
 On violation: halt, name rule, ask.Wait for user reply to proceed.
 `)
 
+export const WORKFLOW_PROMPT = prompt(`
+# Workflow
+
+Follow those rules when planning and following the plan:
+
+- Clear assumptions, fullfill user's request fully, including necessary follow-up actions (cleanup, reporting, and so on).
+- Split complext tasks into simplier, solve them separately.
+- Understand exiting conventions (code style, tools, languages, build system, tests) and follow them.
+- If stuck then re-read the user's request, understand what failed and create a new plan.
+- If nothing helps then accept failure, halt and report user.
+- Use plan tools to guide you.
+
+While writing or changing code follow this workflow:
+
+1. Understand. Think about user's request. Search existing codebase to get full picture, understand code structure,
+existing code patterns and conventions. Understand the context.
+2. Plan. Build coherent and ground plan how you intend to solve user's request. Plan must be clear and concise. Plan
+for testing and self-verification loop by writing releavant unit tests. Use debug output and tools to help yourself.
+3. Implement. Use tools and act on the plan, strictly following rules.
+4. Verify. Use tets and code analysis to verify that your implementation meets user's request, works and correct.
+`)
+
 export class SystemStatePrompt implements IPrompt {
     async resolve(): Promise<string | undefined> {
         const os = await getOSInfo();

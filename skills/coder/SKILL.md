@@ -80,23 +80,3 @@ Avoid those:
 | **Orchestration Leak** — composed lower-module results flow upward untouched; higher callers see `StripeCharge.id` instead of `txId` | Downward Language | The composing module owns the boundary. Translate lower types into this layer's terms before returning. |
 | **Ceremonial Boundary** — thin interface with one impl, callers still repeat same validation/error-handling patterns | Interface as Language | Deepen the interface so callers write less. If impossible, merge into caller. |
 | **Data Pig** — boundary loads or stores fields caller never uses; forces unnecessary data movement across the seam | Knowledge Boundary | Audit what crosses each boundary. If a field isn't used by callers, stop loading it. Split into hot/cold payloads. |
-
-## Workflow
-
-Follow those rules when planning and following the plan:
-
-- Clear assumptions, fullfill user's request fully, including necessary follow-up actions (cleanup, reporting, and so on).
-- Split complext tasks into simplier, solve them separately.
-- Understand exiting conventions (code style, tools, languages, build system, tests) and follow them.
-- If stuck then re-read the user's request, understand what failed and create a new plan.
-- If nothing helps then accept failure, halt and report user.
-- Use plan tools to guide you.
-
-While writing or changing code follow this workflow:
-
-1. Understand. Think about user's request. Search existing codebase to get full picture, understand code structure,
-existing code patterns and conventions. Understand the context.
-2. Plan. Build coherent and ground plan how you intend to solve user's request. Plan must be clear and concise. Plan
-for testing and self-verification loop by writing releavant unit tests. Use debug output and tools to help yourself.
-3. Implement. Use tools and act on the plan, strictly following rules.
-4. Verify. Use tets and code analysis to verify that your implementation meets user's request, works and correct.
