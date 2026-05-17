@@ -5,11 +5,11 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
+    "rootDir": "src"
   },
   "include": [
-    "index.ts",
-    "prompt-builder.ts",
-    "prompts.ts"
+    "src"
   ]
 }
