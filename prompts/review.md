@@ -13,7 +13,7 @@ Decide what need to be reviewed.
 - Does context have some work done? Use this.
 - Check `git status --porcelain` and `git diff` to check if there any changes.
 
-Launch 2 subagents in parallel, give them full description what need to be reviewd. Every agent review their own
+Launch 2 `reviewer` agents in parallel, give them full description what need to be reviewd. Every agent review it's own
 part.
 
 1. Review code quality and find bugs.

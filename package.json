@@ -23,6 +23,9 @@
     ],
     "prompts": [
       "./prompts"
+    ],
+    "agents": [
+      "./agents"
     ]
   }
 }

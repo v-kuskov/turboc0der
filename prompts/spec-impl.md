@@ -21,7 +21,6 @@ and test patterns relevant to the plan.
 - *Squash all per-task commits collapsed into one consolidated commit.
 - Consolidated commit message, describe what was done for the task, follow project's guidlines.
 - Never change code, that's what subagents for.
-- For debug order subagents to use `systematic-debugging` skill.
 
 ## Create Feature Base Branch
 
@@ -38,19 +37,17 @@ For each task, in execution order:
 Update the task's frontmatter `status` from `planned` to `in-progress`.
 Mark task as `in-progress` in task list.
 
-Launch subagent for task, provide it with:
+Launch subagent `tdd-worker` for current task, provide it with:
 
 - Feature slug.
 - Path to the task file.
 - Paths to referenced spec files.
-- Necessary context.
-- Must strictly follow TDD process, explicit RED->GREEN->REFACTOR phases, use `tdd` skill.
 
 Agent must implement exactly one task. Wait for agent to complete.
 
 ### Review
 
-Launch 2 reviews in parallel:
+Launch 2 `reviewer` agents in parallel:
 
 1. Check if code is correct and meets standards and best practices.
 2. Check if code does what it's supposed to do against the spec.
