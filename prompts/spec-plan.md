@@ -5,14 +5,14 @@ argument-hint: "feature slug - name from .specs/{slug}"
 
 Write implementation plan for created and approved spec.  Take the spec files, validate and sharpen through grilling, deduce what you can from codebase/spec, ask user about the rest. Decompose into a high-level plan with compilable+testable task boundaries. Your only job is planning, do not write any code.
 
-**Rules**
+## Rules
 
 1. Plan and tasks files are ≤ 300 lines.
 2. Dependencies form a DAG without cycles
 3. Every task implements one finished aspect of the spec.
 4. Every task has full set of related tests.
 
-**Pre-flight**
+## Pre-flight
 
 - [ ] Read project's context (CONTEXT.md if exists), understand its structure and high-level functionality.
 - [ ] Read `.specs/{feature}/spec.md` and all `.specs/{feature}/spec-*.md` sub-specs.
@@ -20,14 +20,14 @@ Write implementation plan for created and approved spec.  Take the spec files, v
 - [ ] From the spec and codebase try to resolve each design question yourself.
 - [ ] Verify the codebase compiles and tests pass before writing any plan files. If broken, report to user first.
 
-**1. Spec validation**
+## 1. Spec validation
 
 - [ ] Terminology: does the spec use terms that conflict with CONTEXT.md definitions?
 - [ ] Boundaries: Are module responsibilities clear? Does the spec imply a dependency direction that conflicts with existing architecture?
 - [ ] Type shapes: Are the proposed types coherent with existing code patterns?
 - [ ] Missing assumptions: Does the spec assume capabilities the codebase doesn't have?
 
-**2. Design questions**
+## 2. Design questions
 
 - [ ] Knowledge barriers, what each piece of code must and must not know, keep it minimal.
 - [ ] Types, what types feature need, what data and states those types are representing, how connected with another types.
@@ -35,7 +35,7 @@ Write implementation plan for created and approved spec.  Take the spec files, v
 - [ ] Where code must be located, must follow existing conventions.
 - [ ] Task decomposition, each task must end with something compilable and testable.
 
-**3. Interrogate the user**
+## 3. Interrogate the user
 
 Systematically ask the user about design decisions that you couldn't resolve. For questions answerable via codebase exploration, explore instead of asking.
 
@@ -86,7 +86,7 @@ Heuristics:
 | What default? | Check if the codebase uses a similar default elsewhere. |
 | How to split tasks? | Find natural seams: data structure → its consumer → wiring. Each task = a vertical slice with its own tests. |
 
-**4. Document decisions**
+## 4. Document decisions
 
 For each decision, note it with brief rationale. These become part of the plan's Architecture section.
 
@@ -95,11 +95,11 @@ Rules:
 - Every question should offer a recommended answer. "I think X because Y. Does that work?"
 - Max 4 iterations total (shared with interrogation phase).
 
-**5. Plan & Decompose**
+## 5. Plan & Decompose
 
 Write `plan.md` and `task-{desc}.md` files into `.specs/{feature}/`.
 
-**5a. Validate dependency graph** — after writing all task files, run topological sort check to detect cycles:
+### 5a. Validate dependency graph — after writing all task files, run topological sort check to detect cycles:
 
 1. Collect all task filenames (kebab-case, no extension).
 2. For each task, read its `dependencies` frontmatter.
@@ -264,7 +264,7 @@ Natural seams that produce compilable+testable boundaries:
 3. Integration wiring.
 4. API surface/config.
 
-**Post-flight**
+## Post-flight
 
 1. Update frontmatter `status` to `draft`.
 2. Present to user: "Plan written to `.specs/{feature}/plan.md` with X tasks. Review and approve to begin implementation."

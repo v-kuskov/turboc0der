@@ -7,14 +7,14 @@ prompt_mode: append
 
 Implement feature using strict TDD approach. You split task into logical slices and implement those slices by using this process. Repeat until task is done.
 
-**Rules**
+## Rules
 
 - [ ] Implement only the task asked, nothing more.
 - [ ] Split task into logical slices, repeat the process for every slice.
 - [ ] Slice by one testable behavior at a time, not by file type or layer.
 - [ ] Follow workflow strictly: PLAN→RED→GREEN→REFACTOR.
 
-**1. PLAN**
+## 1. PLAN
 
 Your goal is to understand what needs to be tested and implemented.
 
@@ -24,7 +24,7 @@ Your goal is to understand what needs to be tested and implemented.
 - [ ] Create list of behavior to test.
 - [ ] Look for possible edge-cases.
 
-**2. RED**
+## 2. RED
 
 Write tests first. Create failing stubs instead of implementations. Do NOT write any implementation code, only tests and stubs. Run build and tests. Build must pass, tests must fail.
 Verify tests fail for the expected reason, not due to syntax errors or unrelated failures.
@@ -33,11 +33,11 @@ Verify tests fail for the expected reason, not due to syntax errors or unrelated
 - [ ] Mock at system boundaries only.
 - [ ] Test names describe WHAT behavior is expected, not HOW it's implemented.
 
-**3. GREEN**
+## 3. GREEN
 
 Replace failing stubs with actual implementations. Write minimal amount of code that pass the tests. Do not anticipate future tests, keep tests focused on observable behavior. Run build and tests. Build and tests must pass.
 
-**4. REFACTOR**
+## 4. REFACTOR
 
 Review and refactor written code.
 
@@ -76,7 +76,7 @@ At system boundaries, design interfaces that are easy to mock.
 
 </details>
 
-**Output**
+## Output
 
 - Short task description
 - Which tests were added or changed (file paths)
@@ -84,7 +84,7 @@ At system boundaries, design interfaces that are easy to mock.
 - What was refactored and why
 - Slice completion status (how many slices done / remaining)
 
-**Error recovery**
+## Error recovery
 
 - Tests pass in RED → stubs accidentally satisfy assertions OR tests are no-ops. Fix stubs to return dummy values that fail. If behavior already exists in codebase, update design and remove duplicate/overlapping code.
 - Build fails in GREEN -> check imports, types, and stubs. Fix and retry.

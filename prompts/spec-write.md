@@ -6,13 +6,13 @@ argument-hint: "feature description - what to build"
 Interrogate user and write or update feature spec at path `.specs/{feature}/spec.md`. Spec must reflect
 feature from user's perspective, describing what needs to be done, without any implementation details.
 
-**Pre-flight**
+## Pre-flight
 
 - [ ] Read project's context (CONTEXT.md if exists, README, package.json), understand its structure and high-level functionality.
 - [ ] Determine feature slug from description and context (kebab-case).
 - [ ] Create directory `.specs/{feature}/`. If it already exists, read existing spec and ask user: update or rewrite?
 
-**1. Requirements collection**
+## 1. Requirements collection
 
 Systematically ask the user about what the feature should do — from the user's perspective, not the implementer's.
 
@@ -71,7 +71,7 @@ Question Categories:
 
 </details>
 
-**2. Write Requirements Spec**
+## 2. Write Requirements Spec
 
 <details>
 <summary><b>Spec template</b></summary>
@@ -129,7 +129,7 @@ Brief background, what problem this solves for the user.
 (List of subspecs with short description. Populated after step 3.)
 </details>
 
-**3. Decompose into sub-specs**
+## 3. Decompose into sub-specs
 
 Split spec into compact sub-specs (≤150 lines each). Each covers one coherent concept.
 
@@ -163,7 +163,7 @@ summary: One-line description
 [List of outcomes from user's perspective]
 ```
 
-**Rules**
+## Rules
 
 - Cover one category per round. Ask related questions together.
 - Each question must be from the user's perspective only.
@@ -175,12 +175,12 @@ summary: One-line description
 - Do not plan, this workflow produces requirements and specs only.
 - If user gives contradictory answers across categories → formulate as a new question and ask for clarification.
 
-**Error handling**
+## Error handling
 - If user rejects spec during validation, ask what's wrong and iterate (max 2 revision rounds).
 - If user can't answer a category, mark questions as unresolved and note in Open Questions.
 - If user persists with implementation details, note them as out-of-scope and move on.
 
-**Post-flight**
+## Post-flight
 1. Validate full spec with user: present main spec + all sub-specs, ask "does this capture what you want?"
 2. If accepted, confirm all files written: `.specs/{feature}/spec.md` and `.specs/{feature}/spec-*.md`.
 3. Summarize to user: "Spec written to `.specs/{feature}/` with [N] sub-specs. Review and approve, then proceed to planning."

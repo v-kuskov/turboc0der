@@ -5,7 +5,7 @@ argument-hint: "feature slug - name from .specs/{slug}"
 
 Orchestrate implementation for given feature using TDD, subagents and self-verification cycle.
 
-**Pre-flight**
+## Pre-flight
 
 - [ ] Read plan `.specs/{feature}/plan.md` — confirm `status: approved`.
 - [ ] Explore the codebase enough to understand existing types, interfaces, module structure
@@ -19,21 +19,19 @@ and test patterns relevant to the plan.
 - Review-gate per task, do NOT proceed until current task passes review.
 - Commit per task, each verified + reviewed task gets one intermediate commit.
 - Full test suite at end, run it before merging.
-- Squash all per-task commits into one consolidated commit.
-- Consolidated commit message describes what was done across all tasks, follow project's guidelines.
 - Never change code, that's what subagents are for.
 - Verification means running the project's build + test commands (language-specific). Provided by project context.
 - Full Verification at the end means running the complete test suite (build + lint + all tests). Same commands as per-task verification, but run against the full codebase.
 
 </details>
 
-**1. Create Feature Base Branch**
+## 1. Create Feature Base Branch
 
 ```bash
 git checkout -b "feat/{feature}"
 ```
 
-**2. Implement plan one task at a time**
+## 2. Implement plan one task at a time
 
 - [ ] For each task, in execution order: update the task's frontmatter `status` from `planned` to `in-progress`.
 - [ ] Run the `tdd` agent (`agents/tdd.md`) for that task.
@@ -47,7 +45,7 @@ Provide agent with:
 
 Agent must implement exactly one task. Wait for agent to complete.
 
-**3. Review**
+## 3. Review
 
 Launch 2 instances of the reviewer agent (`agents/reviewer.md`) in parallel:
 
@@ -60,7 +58,7 @@ Pass to each agent:
 - Parts of the spec this task implemented.
 - List of changed files.
 
-**4. Verify**
+## 4. Verify
 
 If review returned any blocking/critical/major issues or verification failed → go to fix loop.
 
@@ -75,7 +73,7 @@ When build or test output contains blocking, critical, or major failures:
 4. No more than 3 fix iterations per task.
 5. If 3 iterations exhausted, mark task as `failed`, report in final output, and stop.
 
-**Unrecoverable failure** (build system broken, deps missing, infrastructure):
+#### Unrecoverable failure (build system broken, deps missing, infrastructure):
 
 - Reset last changes.
 - Leave already-implemented tasks intact.
@@ -83,11 +81,11 @@ When build or test output contains blocking, critical, or major failures:
 
 </details>
 
-**Mark Task Done**
+## Mark Task Done
 
 Update the task `status` from `in-progress` to `done`.
 
-**Commit**
+## Commit
 
 ```powershell
 git add <list of changed files>
@@ -96,22 +94,20 @@ git commit -m "<short description what was done as full sentences>" -m "<list of
 
 One commit per task. Follow project-specific commit rules.
 
-**Move to Next Task**
+## Move to Next Task
 
 Proceed to the next task in the ordered list.
 
-**Full Verification**
+## Full Verification
 
 After ALL tasks are committed run full verification and tests.
 If verification fails, fix it.
 
-**Report**
+## Report
 
 Return:
 
 - Feature description.
 - Tasks implemented and committed (ordered list).
 - Per-task: review outcome, fix iterations.
-- Squashed commit hash (on feature branch).
-- Number of intermediate commits consolidated.
 - Any unresolved issues.

@@ -24,6 +24,6 @@ Wait for subagents to finish. Merge both reports and present them to user.
 
 Do not fix anything, just present results.
 
-**Error handling**
+## Error handling
 - No changes found: report and exit.
 - Subagent fails: retry once. If fails again, note failure and continue.
