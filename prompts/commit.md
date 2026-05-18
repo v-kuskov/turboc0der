@@ -3,11 +3,9 @@ description: Commit changes to git
 argument-hint: <description what need to be commited>
 ---
 
-# Commit Workflow
-
 Commit changes in git repository. Collect changes, formulate message, present it to user and commit after confirmation.
 
-## Collect files
+**Collect files**
 
 - Check what was done in this session, what files were changed.
 - Check which files are stages and changed with `git status --porcelain`.
@@ -16,22 +14,17 @@ Commit changes in git repository. Collect changes, formulate message, present it
 - Do not review changes, accept them as-is.
 - Do not make any changes.
 
-## Check if amend is needed
+**Check if amend is needed**
 
 - Changes are small <= 10 lines total or <=3 lines per file.
 - Changes don't affect functionality and fix minor bugs or typos
 - Changes are directly related to last commit `git log-1 --format=%s`.
 
-## Formulate list of changes
+**Formulate list of changes**
 
 - Each logical change goes into one line describe in one sentence.
 - For bugs add short explaination, including root reason and fix.
 - Keep list of changes short, group and merge agressively.
-
-## Present list to user
-
-- Change description exactly how described below.
-- Are you going to commit or amend.
 
 Commit description examples:
 
@@ -46,7 +39,7 @@ Reason: typo in descriptor set creation
 Fix: right textures goes into correct slots
 ```
 
-## Present changes to user
+**Present changes to user**
 
 ```markdown
 **Changes**:
@@ -64,7 +57,7 @@ Fix: right textures goes into correct slots
 
 Wait for user to confirm.
 
-## Commit
+**Commit**
 
 If user confirm then exceute:
 

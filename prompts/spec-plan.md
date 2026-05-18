@@ -3,10 +3,9 @@ description: Planning implementation for spec
 argument-hint: [feature slug]
 ---
 
-Write implementation plan for created and approved spec.  Take the spec files, validate and sharpen through grilling,
-deduce what you can from codebase/spec, ask user about the rest. Decompose into a high-level plan with compilable+testable task boundaries.
+Write implementation plan for created and approved spec.  Take the spec files, validate and sharpen through grilling, deduce what you can from codebase/spec, ask user about the rest. Decompose into a high-level plan with compilable+testable task boundaries.
 
-## Pre-flight
+**Pre-flight**
 
 1. Read project's context, understand it's structure and high-level functionality.
 2. Read `.specs/{feature}/spec.md` and all `.specs/{feature}/spec-*.md` sub-specs.
@@ -14,14 +13,14 @@ deduce what you can from codebase/spec, ask user about the rest. Decompose into 
 and test patterns relevant to the feature.
 4. From the spec and codebase try to resolve each design question yourself.
 
-## Spec validation
+**1. Spec validation**
 
 - Terminology: does the spec use terms that conflict with CONTEXT.md definitions?
 - Boundaries: Are module responsibilities clear? Does the spec imply a dependency direction that conflicts with existing architecture?
 - Type shapes: Are the proposed types coherent with existing code patterns?
 - Missing assumptions: Does the spec assume capabilities the codebase doesn't have?
 
-## Design questions
+**2. Design questions**
 
 - Knowledge barriers, what each piece of code must and must not know, keep it minimal.
 - Types, what types feature need, what data and states those types are representing, how connected with another types.
@@ -29,10 +28,9 @@ and test patterns relevant to the feature.
 - Where code must be located, must follow axisting conventions.
 - Task decomposition, each task must end with something compilable and testable.
 
-## Interrogat the user
+**3. Interrogat the user**
 
-Systematically ask the user about desing decisions that you couldn't resolve. For questions answerable
-via codebase exploration, explore instead of asking.
+Systematically ask the user about desing decisions that you couldn't resolve. For questions answerable via codebase exploration, explore instead of asking.
 
 Rules:
 
@@ -43,14 +41,14 @@ Rules:
 
 Question categories:
 
-1. **API shape** — "Should Pop return `bool` with out-param, or nullable?" — only if both patterns exist in codebase.
-2. **Behavioral choices** — "When X happens, should we Y or Z?" — only when spec is ambiguous.
-3. **Config defaults** — Any numeric/bool config that needs a default.
-4. **Error/edge handling** — Any non-obvious edge case not covered by spec.
+1. API shape — "Should Pop return `bool` with out-param, or nullable?" — only if both patterns exist in codebase.
+2. Behavioral choices — "When X happens, should we Y or Z?" — only when spec is ambiguous.
+3. Config defaults — Any numeric/bool config that needs a default.
+4. Error/edge handling — Any non-obvious edge case not covered by spec.
 
-## Heuristics
+Heuristics:
 
-| Question | How to deduce |
+| Question | How to resolve |
 |----------|---------------|
 | Where does this type go? | Check existing files for similar types. Follow namespace/package conventions. |
 | What signature fits? | Look at existing APIs in the same area. Match conventions (class/interface/fn, params, returns). |
@@ -58,7 +56,7 @@ Question categories:
 | What default? | Check if the codebase uses a similar default elsewhere. |
 | How to split tasks? | Find natural seams: data structure → its consumer → wiring. Each task = a vertical slice with its own tests. |
 
-## Document decisions
+**3. Document decisions**
 
 For each decision, note it with brief rationale. These become part of the plan's Architecture section.
 
@@ -68,11 +66,11 @@ Rules:
 - Every question should offer a recommended answer. "I think X because Y. Does that work?"
 - Max 3 iterations.
 
-## Plan & Decompose
+**4. Plan & Decompose**
 
 Write `plan.md` and `task-{desc}.md` files into `.specs/{feature}/`.
 
-### Plan structure
+Plan structure:
 
 ```markdown
 ---
@@ -98,27 +96,27 @@ Brief (2-3 sentences): what gets built, what changes.
 ### Validation
 - Generic: compile (build succeeds, zero errors), lint (no warnings), test (all pass). Actual commands depend on project language/toolchain.
 
-# Architecture
+## Architecture
 
-## Types
+### Types
 
 For each type (new or modified), describe it's name, what this type repesents, which states it covers.
 
-## Interface
+### Interface
 
 For each new or modified public API, show signatures in pseudocode. Keep minimal — only what's needed to understand the shape.
 
-## Relations
+### Relations
 
 Describe how different parts of the code relate to each other, which types are using and what they're doing.
 Describe global state, where and how it changes.
 
-## Boundaries
+### Boundaries
 
 - What each module knows and does NOT know.
 - "X knows Y but not Z."
 
-# Acceptance
+## Acceptance
 
 Summary of what constitutes success. Reference user stories (US-{N}), functional criteria (FC-{N}), and edge cases (EC-{N}) from the spec.
 
@@ -126,7 +124,7 @@ Summary of what constitutes success. Reference user stories (US-{N}), functional
 |-----|-------|
 | US-1 | <what the user sees when this is done> |
 
-# File Organization
+## File Organization
 
 | Action | File |
 |--------|------|
@@ -136,13 +134,13 @@ Summary of what constitutes success. Reference user stories (US-{N}), functional
 
 Also list test files.
 
-# Tasks
+## Tasks
 
 List of tasks and task files in execution order with short description what those tasks change.
 
 ```
 
-### Constraints on plan.md
+Constraints on plan.md:
 
 - ≤ 300 lines total.
 - Architecture and high-level only, No implementation pseudocode (1-2 lines of algorithm outline is OK for subtle parts, but no more).
@@ -151,7 +149,7 @@ List of tasks and task files in execution order with short description what thos
 - File Organization section lists every file touched by the plan.
 - Tasks section at the end lists all task files with a short summary and dependency column.
 
-### Task structure
+Task file structure:
 
 ```markdown
 ---
@@ -163,19 +161,19 @@ dependencies: []
 
 2-4 sentences. What this task builds. What it does NOT build (explicit out-of-scope for this task).
 
-# Types
+## Types
 
 Describes types that need to be changed, added or deleted, keep it short and in pseudocode.
 
-# Interface
+## Interface
 
 API signatures in pseudocode that this task introduces or modifies.
 
-# Implementation
+## Implementation
 
 Brief algorithm description. Use pseudocode only for non-obvious logic. ≤20 lines. Omit if logic is straightforward.
 
-# Acceptance criteria
+## Acceptance criteria
 
 What must pass for this task to be done. Use spec references:
 
@@ -184,7 +182,7 @@ FC coverage: which functional requirements.
 EC coverage: which edge cases.
 Test scenarios: 1-2 sentence descriptions of key test cases (language-agnostic).
 
-# Files to change
+## Files to change
 
 | File | Action |
 |------|--------|
@@ -192,7 +190,7 @@ Test scenarios: 1-2 sentence descriptions of key test cases (language-agnostic).
 
 ```
 
-### Constraints on task files
+Constraints on task files:
 
 - ≤ 300 lines each.
 - Keep it short, favor concise descriptions over verbose detail.
@@ -203,7 +201,7 @@ Test scenarios: 1-2 sentence descriptions of key test cases (language-agnostic).
 - Follow `dependencies: [task-1, task-3]` format for frontmatter where applicable.
 - Dependencies must be acyclic. Tasks form a DAG.
 
-### Task decomposition guidelines
+Task decomposition guidelines:
 
 Natural seams that produce compilable+testable boundaries:
 
@@ -212,7 +210,7 @@ Natural seams that produce compilable+testable boundaries:
 3. Integration wiring.
 4. API surface/config.
 
-### Validate
+**5. Validate**
 
 1. plan.md ≤ 300 lines? Count them.
 2. plan.md has Architecture/Types section with type focus?
@@ -223,7 +221,7 @@ Natural seams that produce compilable+testable boundaries:
 7. Each task ends with something compilable and testable? (for this task's scope — compile, lint, test all pass)
 8. Task files in same dir as plan.md?
 
-## Post-flight
+**Post-flight**
 
 1. Update frontmatter `status` to `draft`.
 2. Present to user: "Plan written to `.specs/{feature}/plan.md` with X tasks. Review and approve to begin implementation."

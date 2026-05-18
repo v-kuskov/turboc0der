@@ -6,17 +6,17 @@ argument-hint: [feature description]
 Interrogate user and write or update feature spec at path `.specs/{feature}/spec.md. Spec must reflect
 feature from user's perspective, describing what need to be done, without any implementation details.
 
-## Pre-flight
+**Pre-flight**
 
 1. Read project's context, understand it's structure and high-level functionality.
 2. Determine feature slug from description and context (kebab-case).
 3. Create directory `.specs/{feature}/`.
 
-## Requirements collection
+**1. Requirements collection**
 
 Systematically ask the user about what the feature should do — from the user's perspective, not the implementer's.
 
-### Question Categories
+Question Categories:
 
 1. **User & Purpose**
    - Who is the user of this feature?
@@ -47,15 +47,7 @@ Systematically ask the user about what the feature should do — from the user's
    - What error states should the user see?
    - What invalid inputs might occur?
 
-### Rules
-
-- Ask ONE question at a time
-- Each question must be from the **user's perspective only**
-- If user starts describing implementation, redirect: "Let's focus on what the user sees, not how it's built."
-- Continue until all categories are covered and user has nothing more to add
-- Max 3 iterations. Document remaining unknowns as open questions.
-
-## Phase 2: Write Requirements Spec
+**2: Write Requirements Spec**
 
 Synthesize answers into `.specs/{feature}/spec.md`:
 
@@ -65,13 +57,15 @@ status: draft
 summary: Requirements spec for {feature}
 ---
 
-## Context and Goals
+# Context and Goals
 
 Brief background, what problem this solves for the user.
 
 ## User Stories
 
 [List of user stories, named as US-{N}]
+
+## Acceptance
 
 [Acceptance scenarios]
 
@@ -112,7 +106,7 @@ Brief background, what problem this solves for the user.
 
 Validate with user: present the spec and ask "does this capture what you want?"
 
-## Phase 3: Decompose into sub-specs
+**3: Decompose into sub-specs**
 
 Split spec into compact sub-specs (≤150 lines each). Each covers one coherent concept.
 
@@ -121,9 +115,7 @@ Split spec into compact sub-specs (≤150 lines each). Each covers one coherent 
 
 ```markdown
 ---
-status: draft
 summary: One-line description
-dependencies: []
 ---
 
 ## Context
@@ -147,10 +139,13 @@ dependencies: []
 [List of outcomes from user's perspective]
 ```
 
-## Rules
+**Rules**
 
-- **Self-validate** each file ≤150 lines? No implementation leaked? Dependencies acyclic?
-- **If any sub-spec exceeds 150 lines:** compress (remove redundancy, tighten language) OR split into two or more sub-specs. The parent `spec.md` is exempt from the line limit (it's a summary/index).
-- **No implementation details** Never ask about or document HOW. Only WHAT from user perspective.
-- **Do not plan** This workflow produces requirements and specs only.
-- **No code** You only collect requirements.
+- Ask ONE question at a time.
+- Each question must be from the user's perspective only.
+- If user starts describing implementation, redirect: "Let's focus on what the user sees, not how it's built.".
+- Spec files must be 150 lines long or less.
+- Continue until all categories are covered and user has nothing more to add.
+- Max 3 iterations. Document remaining unknowns as open questions.
+- No implementation details, never ask about or document HOW, only WHAT from user perspective.
+- Do not plan, this workflow produces requirements and specs only.
